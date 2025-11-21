@@ -1,4 +1,4 @@
-````markdown
+
 # Tempo 30 Zones Analysis
 
 A comprehensive project for the automated identification and visualization of Tempo 30 (20 mph / 30 km/h) zones based on OpenStreetMap (OSM) data and PostGIS analysis. A Node.js proxy is included to bypass CORS restrictions between the browser and GeoServer.
