@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>GeoServer Layer Viewer (ne:tempo30 & ne:roads)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/maplibre-gl@4.3.2/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl@4.3.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; height: 100vh; }
+        .map-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<div class="map-overlay">
+    
+    <ul class="mt-2 space-y-1">
+        <li class="text-sm flex items-center">
+            <span class="inline-block w-3 h-3 rounded-full mr-2" style="background-color: #3b82f6;"></span>
+            <span class="font-semibold">Roads</span>
+        </li>
+        <li class="text-sm flex items-center">
+            <span class="inline-block w-3 h-3 rounded-full mr-2" style="background-color: #ef4444;"></span>
+            <span class="font-semibold">Suitable</span>
+        </li>
+    </ul>
+</div>
+
+<script>
+    // Die Karte initialisieren
+    const map = new maplibregl.Map({
+        container: 'map',
+        // Verwende eine Basis-Style-URL
+        style: 'https://demotiles.maplibre.org/globe.json', 
+        // Generische europäische Koordinaten als Ausgangspunkt, da der GeoServer-Inhalt nun unbekannt ist
+        center: [9.0, 50.0], 
+        zoom: 5 
+    });
+
+    map.on('load', () => {
+        
+        // --- Layer 1: ne:planet_osm_roads (Basisstraßennetz) ---
+        
+        // GeoJSON-Source vom roads-WFS-Proxy
+        map.addSource('osm_roads', {
+            type: 'geojson',
+            data: 'http://localhost:3000/roads-wfs'
+        }, (error) => {
+            if (error) console.error('Fehler beim Laden des Roads-Layers:', error);
+            else console.log('Roads-Layer erfolgreich geladen.');
+        });
+
+        // Line-Layer für die Straßen hinzufügen (dünne blaue Linie)
+        map.addLayer({
+            id: 'roads_layer',
+            type: 'line',
+            source: 'osm_roads',
+            layout: {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            paint: {
+                'line-color': '#3b82f6', // Blau
+                'line-width': 2,
+                'line-opacity': 0.8
+            }
+        });
+
+        // --- Layer 2: ne:tempo30_analyse_ergebnis (Analyseergebnis) ---
+
+        // GeoJSON-Source vom tempo30-WFS-Proxy
+        map.addSource('tempo30_analysis', {
+            type: 'geojson',
+            data: 'http://localhost:3000/tempo30-wfs'
+        }, (error) => {
+            if (error) console.error('Fehler beim Laden des Tempo 30-Layers:', error);
+            else console.log('Tempo 30-Layer erfolgreich geladen.');
+        });
+
+        // Line-Layer für die Analyseergebnisse hinzufügen (dicke rote Linie)
+        map.addLayer({
+            id: 'tempo30_layer',
+            type: 'line',
+            source: 'tempo30_analysis',
+            layout: {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            paint: {
+                'line-color': '#ef4444', // Rot
+                'line-width': 4,
+                'line-opacity': 0.9
+            }
+        });
+        
+        // Versuchen, zur Bounding Box der geladenen Daten zu zoomen (optional, verbessert die Benutzererfahrung)
+        // Dieser Teil benötigt die tatsächlichen GeoJSON-Daten und kann komplex sein,
+        // daher belassen wir es bei einem fixen Center, bis die Daten geladen sind.
+        
+    });
+
+    // Fehlerbehandlung für die Karte
+    map.on('error', (e) => {
+        console.error("MapLibre GL Error:", e.error);
+    });
+
+</script>
+</body>
+</html>
