@@ -41,12 +41,7 @@ node proxy.js
 
 ### 5. Open application
 
-Open the map in your browser to view the analyzed Tempo 30 zones.
-
-```bash
-open map.html
-```
-
+Open the map.html in your browser to view the analyzed Tempo 30 zones.
 ---
 
 ## Tempo 30 zones logic
