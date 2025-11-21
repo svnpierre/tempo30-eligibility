@@ -20,7 +20,7 @@ This project combines several tools for importing, analyzing, and providing geos
 
 ### 1. Execute Setup
 
-Run the setup script to install all dependencies and populate the PostGIS database with OSM data.
+Run the setup shell to install all dependencies and populate the PostGIS database with OSM data.
 
 ```bash
 chmod +x setup.sh
