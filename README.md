@@ -7,14 +7,13 @@ A comprehensive project for the automated identification and visualization of Te
 
 This project combines several tools for importing, analyzing, and providing geospatial data:
 
-| Component | Purpose | Technology |
-| :--- | :--- | :--- |
-| **Import** | Loads OSM data into the database. | `osm2pgsql` |
-| **Storage & Analysis** | Stores road data and performs spatial analysis. | **PostGIS** |
-| **Provision** | Provides analysis results as a WFS service. | **GeoServer** |
-| **Proxy** | Bypasses CORS restrictions for WFS queries. | **Express.js** |
-| **Visualization** | Frontend for displaying the identified zones. | **MapLibre** |
-
+| Component | Layer | Purpose | Technology |
+| :--- | :--- | :--- | :--- |
+| **Import** | **Data (Access)** | Loads OSM data into the database. | `osm2pgsql` |
+| **Storage & Analysis** | **Data (Storage)** | Stores road data and performs spatial analysis. | **PostGIS** |
+| **Provision** | **Application (Service)** | Provides analysis results as a WFS service. | **GeoServer** |
+| **Proxy** | **Service/Middleware** | Bypasses CORS restrictions for WFS queries. | **Express.js** |
+| **Visualization** | **Presentation** | Frontend for displaying the identified zones. | **MapLibre** |
 ---
 
 ## Installation and Setup
