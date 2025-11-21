@@ -81,5 +81,6 @@ After primary zones are identified, the zones are extended based on the followin
 * **Affected Roads:** Identified zones cover a road segment of 300 meters.
 * **Gap Filling:** If the distance between two identified Tempo 30 zones is less than 500 meters, the intermediate segment is also classified as Tempo 30.
 
-```
-```
+# Architecture
+![Alt text](Architecture.png)
+
