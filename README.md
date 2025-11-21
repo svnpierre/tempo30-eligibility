@@ -18,20 +18,16 @@ This project combines several tools for importing, analyzing, and providing geos
 
 ## Installation and Setup
 
-### 1. Prerequisites
+### 1. Execute Setup
 
-Install **Node.js**, **PostgreSQL/PostGIS**, and **`osm2pgsql`** on your system.
-
-### 2. Execute Setup
-
-Run the setup script to install Node.js dependencies and populate the PostGIS database with OSM data.
+Run the setup script to install all dependencies and populate the PostGIS database with OSM data.
 
 ```bash
 chmod +x setup.sh
 ./setup.sh
 ````
 
-### 3. Start Proxy
+### 2. Start Proxy
 
 Start the Express proxy server, which acts as an intermediary between your browser and GeoServer.
 
@@ -39,7 +35,7 @@ Start the Express proxy server, which acts as an intermediary between your brows
 node proxy.js
 ```
 
-### 4. Open Application
+### 3. Open Application
 
 Open the map in your browser to view the analyzed Tempo 30 zones.
 
