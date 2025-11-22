@@ -11,8 +11,8 @@ This project combines several tools for importing, analyzing, and providing geos
 | :--- | :--- | :--- |
 | **osm2pgsql** | **Data** | Loads OSM data into the database. |
 | **PostGIS** | **Data** | Stores road data and performs spatial analysis. |
-| **GeoServer** | **Application** | Provides analysis results as a WFS service. |
-| **Express.js** | **Service/Middleware** | Proxy to bypass CORS restrictions for WFS queries. |
+| **GeoServer** | **Service** | Provides analysis results as a WFS service. |
+| **Express.js** | **Service** | Proxy to bypass CORS restrictions for WFS queries. |
 | **MapLibre** | **Presentation** | Frontend for displaying the identified zones. |
 
 ## Installation and setup
